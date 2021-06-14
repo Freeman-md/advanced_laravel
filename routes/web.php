@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\TaskEvent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
@@ -45,4 +46,9 @@ Route::get('/send', function() {
     $job = (new SendEmail())->delay(now()->addSeconds(5));
     dispatch($job);
     return 'Email has been sent';
+});
+
+// Events
+Route::get('/event', function() {
+    event(new TaskEvent('Hey! How are you.'));
 });
