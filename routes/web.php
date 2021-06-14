@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
 use App\Jobs\SendEmail;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,3 +58,16 @@ Route::get('/event', function() {
 Route::get('/listen', function() {
     return view('listenBroadcast');
 });
+
+// Gates
+// Alt - 1
+Route::view('/subs', 'subs')->middleware('can:subs_only, auth()->user()');
+
+// Alt - 2
+// Route::get('/subs', function() {
+//     if (Gate::allows('subs_only', auth()->user())) {
+//         return view('subs');
+//     } else {
+//         abort(403, 'You are not a subscriber');
+//     }
+// });

@@ -28,6 +28,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // Gate::define('subs_only', [Subs::class, 'subs_only']);
+        Gate::define('subs_only', function($user) {
+            if ($user->subs == 1) {
+                return true;
+            }
+    
+            return false;
+        });
     }
 }
