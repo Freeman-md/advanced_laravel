@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
+use App\Jobs\SendEmail;
 use Illuminate\Support\Facades\App;
 
 /*
@@ -33,7 +34,15 @@ Route::post('/form', [FormController::class, 'store']);
 // Algolia Search
 Route::get('/search/{searchKey}', [SearchController::class, 'index'])->name('search');
 
-Route::get('locale/{lang?}', function($lang=null) {
+// Localization
+Route::get('/locale/{lang?}', function($lang=null) {
     App::setLocale($lang);
     return view('locale');
+});
+
+// Send Email
+Route::get('/send', function() {
+    $job = (new SendEmail())->delay(now()->addSeconds(5));
+    dispatch($job);
+    return 'Email has been sent';
 });
