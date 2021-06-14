@@ -16,14 +16,14 @@ class Subs
      */
     public function __construct()
     {
-        //
+        
     }
 
-    // public function subs_only($user) {
-    //     if ($user->subs == 1) {
-    //         return true;
-    //     }
+    public function subs_only($user) {
+        if ($user->subs == 1) {
+            return true;
+        }
 
-    //     return false;
-    // }
+        return false;
+    }
 }
