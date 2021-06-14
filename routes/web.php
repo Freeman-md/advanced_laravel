@@ -27,10 +27,12 @@ use Illuminate\Support\Facades\Notification as FacadesNotification;
 Route::get('/', function () {
     $user = User::find(1);
 
-    // $user->notify(new TaskCompleted);
+    $when = now()->addMinutes(15);
+
+    $user->notify((new TaskCompleted())->delay($when));
 
     // Facade
-    FacadesNotification::send($user, new TaskCompleted);
+    // FacadesNotification::send($user, new TaskCompleted);
 
     return view('welcome');
 });
