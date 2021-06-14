@@ -52,3 +52,8 @@ Route::get('/send', function() {
 Route::get('/event', function() {
     event(new TaskEvent('Hey! How are you.'));
 });
+
+// Broadcasts 
+Route::get('/listen', function() {
+    return view('listenBroadcast');
+});
