@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\User;
 use Illuminate\Console\Command;
 
 class Hello extends Command
@@ -37,8 +38,21 @@ class Hello extends Command
      */
     public function handle()
     {
-        $name = $this->argument('name');
-        $lname = $this->option('lastname');
-        $this->comment($name.' '.$lname);
+        $this->displayTable();
+    }
+
+    public function getInput() {
+        $name = $this->secret('What is your name: ');
+        $confirm = $this->confirm('Do you want to print your name?');
+        
+        if ($confirm) {
+            $this->error($name);
+        }
+    }
+
+    public function displayTable() {
+        $header = ['Name', 'Email'];
+        $users = User::select('name', 'email')->limit(30)->get();
+        $this->table($header, $users);
     }
 }
