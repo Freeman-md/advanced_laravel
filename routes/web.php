@@ -7,8 +7,11 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
 use App\Jobs\SendEmail;
+use App\Models\User;
+use App\Notifications\TaskCompleted;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Notification as FacadesNotification;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +25,13 @@ use Illuminate\Support\Facades\Gate;
 */
 
 Route::get('/', function () {
+    $user = User::find(1);
+
+    // $user->notify(new TaskCompleted);
+
+    // Facade
+    FacadesNotification::send($user, new TaskCompleted);
+
     return view('welcome');
 });
 

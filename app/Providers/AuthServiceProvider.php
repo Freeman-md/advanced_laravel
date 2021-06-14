@@ -33,6 +33,6 @@ class AuthServiceProvider extends ServiceProvider
          Gate::resource('posts', 'App\Policies\PostPolicy', [
              'posts.photo' => 'updatePhoto',
              'posts.image' => 'updateImage',
-         ])
+         ]);
     }
 }
